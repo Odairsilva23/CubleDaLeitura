@@ -54,9 +54,9 @@ namespace CubleDaLeitura.consoleApp.Telas
 
         public void VisualizarRegistros()
         {
-            ConfigurarTela("Visualizando Caixas Cadastradas...");
+            ConfigurarTela("Visualizando Emprestimos...");
 
-            string configuracaColunasTabela = "{0,-10} | {1,-35} | {2,-35}";
+            string configuracaColunasTabela = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10}";
 
             MontarCabecalhoTabela(configuracaColunasTabela);
 
@@ -64,15 +64,17 @@ namespace CubleDaLeitura.consoleApp.Telas
 
             if (emprestimos.Length == 0)
             {
-                ApresentarMensagem("Nenhum emprestimo cadastrada!", TipoMensagem.Atencao);
+                ApresentarMensagem("Nenhum emprestimo cadastrado!", TipoMensagem.Atencao);
                 return;
             }
-
+            //Vizualia Emprestimos Realizados
             for (int i = 0; i < emprestimos.Length; i++)
             {
                 Console.WriteLine(configuracaColunasTabela,
-                   emprestimos[i].id, emprestimos[i].nomeAmigo, emprestimos[i].revista);
+                   emprestimos[i].id, emprestimos[i].nomeAmigo, emprestimos[i].revista, emprestimos[i].dataEmprestimo);
+                Console.WriteLine("--------------------------------------------------------------------------");
             }
+            //Vizualisa Emprestimos Realizados no Mes
             foreach (Emprestimo emprestimo in emprestimos)
             {
                 if (emprestimo.dataDevolucao != DateTime.MinValue)
@@ -81,7 +83,18 @@ namespace CubleDaLeitura.consoleApp.Telas
                     {
                         Console.WriteLine("{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10}",
                             emprestimo.id, emprestimo.revista.id, emprestimo.nomeAmigo.nomeAmigo, emprestimo.dataEmprestimo, emprestimo.dataDevolucao);
+                        Console.WriteLine("--------------------------------------------------------------------------");
                     }
+                }
+            }
+            //Vizualisa Emprestimos Diarios
+            foreach (Emprestimo emprestimo in emprestimos)
+            {
+                if (emprestimo.dataDevolucao == DateTime.MinValue)
+                {
+                    Console.WriteLine("{0,-10} | {1,-10} | {2,-10} | {3,-10}",
+                        emprestimo.id, emprestimo.revista.id, emprestimo.nomeAmigo.nomeAmigo, emprestimo.dataEmprestimo);
+                    Console.WriteLine("--------------------------------------------------------------------------");
                 }
             }
         }
@@ -89,8 +102,8 @@ namespace CubleDaLeitura.consoleApp.Telas
         {
             Console.WriteLine("Digite 1 para inserir um novo emprestimo");
             Console.WriteLine("Digite 2 para Registrar Devolução");
-            Console.WriteLine("Digite 3 para visualizar os Emprestimos do dia");
-            Console.WriteLine("Digite 4 para para vizualicar os emprestimos de um dertimado mes");
+            Console.WriteLine("Digite 3 para visualizar os Emprestimos ");
+            
 
             Console.WriteLine("Digite S para sair");
 

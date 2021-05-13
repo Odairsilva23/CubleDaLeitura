@@ -105,33 +105,7 @@ namespace CubleDaLeitura.consoleApp.Controladores
 
             return count;
         }
-        private bool RevistaJaFoiEmprestada(Revista revista)
-        {
-            Emprestimo[] emprestimos = SelecionarEmprestimos();
-
-            foreach (Emprestimo emprestimo in emprestimos)
-            {
-                if (!emprestimo.Devolvido && emprestimo.revista.Equals(revista))
-                    return true;
-            }
-
-            return false;
-        }
-
-        private int ContarEmprestimosNaoDevolvidos(int idSelecionado)
-        {
-            int count = 0;
-            Emprestimo[] emprestimos = SelecionarEmprestimos();
-           
-
-            foreach (Emprestimo emprestimo in emprestimos)
-            {
-                if (!emprestimo.Devolvido)
-                    count++;
-            }
-
-            return count;
-        }
+      
 
         private int ContarEmprestimosAbertoDia()
         {
@@ -152,12 +126,12 @@ namespace CubleDaLeitura.consoleApp.Controladores
         {
             Emprestimo[] emprestimos = SelecionarEmprestimos();
 
-            int mesHoje = DateTime.Now.Month;
+            int mes = DateTime.Now.Month;
             int count = 0;
 
             foreach (Emprestimo emprestimo in emprestimos)
             {
-                if (emprestimo.dataEmprestimo.Month == mesHoje)
+                if (emprestimo.dataEmprestimo.Month == mes)
                     count++;
             }
 
